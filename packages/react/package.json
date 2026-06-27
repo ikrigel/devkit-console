@@ -1,0 +1,38 @@
+{
+  "name": "@devkit-console/react",
+  "version": "0.1.0",
+  "description": "React hooks and components for DevKit Console",
+  "author": "ikrigel",
+  "license": "MIT",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --sourcemap --clean --external @devkit-console/core,react",
+    "test": "vitest",
+    "test:run": "vitest --run",
+    "typecheck": "tsc --noEmit"
+  },
+  "sideEffects": false,
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "@devkit-console/core": "^0.1.0"
+  },
+  "devDependencies": {
+    "react": "^18.2.0",
+    "@devkit-console/core": "workspace:*",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.0",
+    "vitest": "^0.34.0",
+    "@vitest/ui": "^0.34.0"
+  },
+  "keywords": ["debug", "logging", "devtools", "react"]
+}
