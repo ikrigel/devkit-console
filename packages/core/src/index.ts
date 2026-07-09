@@ -26,7 +26,8 @@ export type { DebugGlobal } from './window-global';
 export { STORAGE_KEY_PREFIX, DEFAULT_MAX_HISTORY_SIZE, VERSION } from './constants';
 
 // Convenience export
-import { getDebugManager, installWindowGlobal } from './window-global';
+import { getDebugManager } from './manager';
+import { installWindowGlobal } from './window-global';
 
 // Auto-install to window.debug if available
 if (typeof window !== 'undefined') {

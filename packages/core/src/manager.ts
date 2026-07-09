@@ -1,5 +1,6 @@
 import type {
   LogLevel,
+  LogEntry,
   DebugConfig,
   DebugConfigChangeEvent,
   LogHistoryChangeEvent,
