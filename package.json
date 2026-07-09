@@ -1,0 +1,33 @@
+{
+  "name": "devkit-console",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Standalone npm library for bidirectional debug level control between browser console and React UI",
+  "author": "ikrigel <ikrigel@gmail.com>",
+  "license": "MIT",
+  "keywords": ["debug", "logging", "devtools", "react", "typescript"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ikrigel/devkit-console.git"
+  },
+  "homepage": "https://github.com/ikrigel/devkit-console#readme",
+  "bugs": {
+    "url": "https://github.com/ikrigel/devkit-console/issues"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "test:run": "pnpm -r test -- --run",
+    "lint": "eslint . --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit",
+    "dev": "pnpm --filter demo dev",
+    "demo:build": "pnpm --filter demo build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "eslint": "^8.50.0",
+    "typescript": "^5.2.0",
+    "vitest": "^0.34.0"
+  }
+}
