@@ -1,4 +1,4 @@
-import { useLogger } from '@devkit-console/react';
+import { useLogger } from 'devkit-console-ui';
 
 export function ScenarioSection() {
   const simulator = useLogger('Simulator');

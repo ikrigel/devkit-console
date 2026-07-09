@@ -1,6 +1,6 @@
 import React, { createContext, ReactNode } from 'react';
-import type { DebugManager } from '@devkit-console/core';
-import { getDebugManager } from '@devkit-console/core';
+import type { DebugManager } from 'devkit-console-core';
+import { getDebugManager } from 'devkit-console-core';
 
 export interface DebugKitContextType {
   manager: DebugManager;

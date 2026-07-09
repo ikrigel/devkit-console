@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import type { LogLevel, LogEntry } from '@devkit-console/core';
+import type { LogLevel, LogEntry } from 'devkit-console-core';
 import { useLogHistory } from '../hooks/useLogHistory';
 
 export interface LogViewerProps {

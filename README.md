@@ -35,13 +35,13 @@ No polling. No setTimeout. Real pub/sub events under the hood.
 ### Installation
 
 ```bash
-npm install @devkit-console/core @devkit-console/react
+npm install devkit-console-core devkit-console-ui
 ```
 
 Or just core if you only need the console API:
 
 ```bash
-npm install @devkit-console/core
+npm install devkit-console-core
 ```
 
 ### Usage
@@ -50,7 +50,7 @@ npm install @devkit-console/core
 
 ```typescript
 import React from 'react';
-import { DebugKitProvider, DebugPanel, useDebugConfig } from '@devkit-console/react';
+import { DebugKitProvider, DebugPanel, useDebugConfig } from 'devkit-console-ui';
 
 function App() {
   return (
@@ -109,7 +109,7 @@ debug.ns('Auth').info('Login') // Scoped logging
 
 ## What's Included
 
-### @devkit-console/core (~3KB gzipped)
+### devkit-console-core (~3KB gzipped)
 
 - **DebugManager** — centralized log state (enabled/disabled, level)
 - **Logger** — namespace-scoped loggers (`debug.ns('MyApp')`)
@@ -118,7 +118,7 @@ debug.ns('Auth').info('Login') // Scoped logging
 - **TypeScript** — full type safety
 - **Zero dependencies** at runtime
 
-### @devkit-console/react (~8KB gzipped)
+### devkit-console-ui (~8KB gzipped)
 
 **Hooks:**
 - `useDebugConfig()` — subscribe to config changes
@@ -160,9 +160,9 @@ Check out the interactive demo: https://devkit-console.vercel.app
 ✅ **Structured data** — log objects + arrays, not just strings  
 ✅ **Export logs** — download as JSON or text  
 ✅ **TypeScript** — full type safety, no `any`  
-✅ **Zero dependencies** (core package)  
+✅ **Zero dependencies** (devkit-console-core)  
 ✅ **No CSS imports** — drop-in React components with inline styles  
-✅ **Tiny** — 3KB core + 8KB react (gzipped)  
+✅ **Tiny** — 3KB core + 8KB UI (gzipped)  
 ✅ **Persistent** — settings saved to localStorage  
 ✅ **Event-based** — pub/sub under the hood, not polling  
 
@@ -267,8 +267,8 @@ debug.ns('Auth').info('Event from Auth namespace');
 
 The project includes comprehensive tests:
 
-- **30 tests** for @devkit-console/core
-- **3 tests** for @devkit-console/react components
+- **30 tests** for devkit-console-core
+- **3 tests** for devkit-console-ui components
 - **Zero external dependencies** (core)
 - **Full TypeScript** strict mode
 
@@ -284,8 +284,8 @@ pnpm -r test:run
 ## Performance
 
 - **Build sizes** (gzipped):
-  - core: ~3KB
-  - react: ~8KB
+  - devkit-console-core: ~3KB
+  - devkit-console-ui: ~8KB
   - demo: ~52KB (full app with all dependencies)
 
 - **Runtime performance**:

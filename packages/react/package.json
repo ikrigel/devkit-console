@@ -1,5 +1,5 @@
 {
-  "name": "@devkit-console/react",
+  "name": "devkit-console-ui",
   "version": "0.1.0",
   "description": "React hooks and components for DevKit Console",
   "author": "ikrigel <ikrigel@gmail.com>",
@@ -28,7 +28,7 @@
   },
   "files": ["dist", "README.md"],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --sourcemap --clean --external @devkit-console/core,react",
+    "build": "tsup src/index.ts --format esm,cjs --dts --sourcemap --clean --external devkit-console-core,react",
     "test": "vitest",
     "test:run": "vitest --run",
     "typecheck": "tsc --noEmit"
@@ -36,7 +36,7 @@
   "sideEffects": false,
   "peerDependencies": {
     "react": ">=17.0.0",
-    "@devkit-console/core": "^0.1.0"
+    "devkit-console-core": "^0.1.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.1.0",
@@ -46,7 +46,7 @@
     "@vitest/ui": "^0.34.0",
     "jsdom": "^22.1.0",
     "react": "^18.2.0",
-    "@devkit-console/core": "workspace:*",
+    "devkit-console-core": "workspace:*",
     "tsup": "^7.2.0",
     "typescript": "^5.2.0",
     "vitest": "^0.34.0"

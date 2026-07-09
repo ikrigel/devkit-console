@@ -1,5 +1,5 @@
 import { useContext, useMemo } from 'react';
-import type { Logger } from '@devkit-console/core';
+import type { Logger } from 'devkit-console-core';
 import { DebugKitContext } from '../context';
 
 export function useLogger(namespace: string): Logger {

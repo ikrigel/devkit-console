@@ -23,10 +23,10 @@ importers:
 
   apps/demo:
     dependencies:
-      '@devkit-console/core':
+      devkit-console-core:
         specifier: workspace:*
         version: link:../../packages/core
-      '@devkit-console/react':
+      devkit-console-ui:
         specifier: workspace:*
         version: link:../../packages/react
       react:
@@ -72,9 +72,6 @@ importers:
 
   packages/react:
     devDependencies:
-      '@devkit-console/core':
-        specifier: workspace:*
-        version: link:../core
       '@testing-library/jest-dom':
         specifier: ^6.1.0
         version: 6.9.1
@@ -90,6 +87,9 @@ importers:
       '@vitest/ui':
         specifier: ^0.34.0
         version: 0.34.7(vitest@0.34.6)
+      devkit-console-core:
+        specifier: workspace:*
+        version: link:../core
       jsdom:
         specifier: ^22.1.0
         version: 22.1.0

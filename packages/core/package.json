@@ -1,5 +1,5 @@
 {
-  "name": "@devkit-console/core",
+  "name": "devkit-console-core",
   "version": "0.1.0",
   "description": "Zero-deps debug manager for browser console + storage",
   "author": "ikrigel <ikrigel@gmail.com>",

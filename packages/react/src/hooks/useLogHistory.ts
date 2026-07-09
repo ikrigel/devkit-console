@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
-import type { LogEntry, LogLevel } from '@devkit-console/core';
+import type { LogEntry, LogLevel } from 'devkit-console-core';
 import { DebugKitContext } from '../context';
 
 export interface LogHistoryFilters {

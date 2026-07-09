@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
-import type { DebugConfig } from '@devkit-console/core';
+import type { DebugConfig } from 'devkit-console-core';
 import { DebugKitContext } from '../context';
 
 export function useDebugConfig(): DebugConfig {

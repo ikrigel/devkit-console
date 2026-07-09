@@ -1,5 +1,5 @@
 import React from 'react';
-import type { LogLevel } from '@devkit-console/core';
+import type { LogLevel } from 'devkit-console-core';
 import { useDebugConfig } from '../hooks/useDebugConfig';
 import { useDebugManager } from '../hooks/useDebugManager';
 

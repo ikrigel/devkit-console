@@ -1,4 +1,4 @@
-import { useLogger, useLogHistory } from '@devkit-console/react';
+import { useLogger, useLogHistory } from 'devkit-console-ui';
 
 export function NamespaceDemoSection() {
   const authLogger = useLogger('Auth');

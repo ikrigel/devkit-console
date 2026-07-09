@@ -1,4 +1,4 @@
-import { DebugKitProvider, useDebugConfig, useLogHistory, useLogger, DebugPanel } from '@devkit-console/react';
+import { DebugKitProvider, useDebugConfig, useLogHistory, useLogger, DebugPanel } from 'devkit-console-ui';
 import { HeroSection } from './sections/HeroSection';
 import { ConsoleSyncSection } from './sections/ConsoleSyncSection';
 import { NamespaceDemoSection } from './sections/NamespaceDemoSection';

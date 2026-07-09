@@ -29,4 +29,4 @@ export { DebugPanel } from './components/DebugPanel';
 export type { DebugPanelProps } from './components/DebugPanel';
 
 // Re-export core types for convenience
-export type { DebugConfig, LogEntry, LogLevel } from '@devkit-console/core';
+export type { DebugConfig, LogEntry, LogLevel } from 'devkit-console-core';

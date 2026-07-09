@@ -1,4 +1,4 @@
-import { useDebugConfig } from '@devkit-console/react';
+import { useDebugConfig } from 'devkit-console-ui';
 
 export function ConsoleSyncSection() {
   const config = useDebugConfig();

@@ -12,8 +12,8 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@devkit-console/core": "workspace:*",
-    "@devkit-console/react": "workspace:*"
+    "devkit-console-core": "workspace:*",
+    "devkit-console-ui": "workspace:*"
   },
   "devDependencies": {
     "vite": "^4.4.0",
