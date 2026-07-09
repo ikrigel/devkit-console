@@ -52,8 +52,9 @@ export function DebugPanel({
     const base: React.CSSProperties = {
       position: 'fixed',
       zIndex: 9999,
-      width: '400px',
-      maxHeight: '600px',
+      width: 'calc(100vw - 32px)',
+      maxWidth: '400px',
+      maxHeight: 'calc(100vh - 32px)',
       display: 'flex',
       flexDirection: 'column',
     };
