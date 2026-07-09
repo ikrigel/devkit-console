@@ -27,10 +27,10 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
     borderRadius: '12px',
     boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
     maxWidth: '500px',
-    width: '90%',
-    maxHeight: '80vh',
+    width: 'calc(100vw - 32px)',
+    maxHeight: 'calc(100vh - 32px)',
     overflow: 'auto',
-    padding: '40px',
+    padding: '32px 24px',
     fontFamily: 'system-ui, -apple-system, sans-serif',
     animation: 'slideUp 0.3s ease-out',
   };
@@ -54,7 +54,7 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
   };
 
   const titleStyle: React.CSSProperties = {
-    fontSize: '28px',
+    fontSize: 'clamp(20px, 5vw, 28px)',
     fontWeight: '700',
     color: '#1f2937',
     marginBottom: '8px',
@@ -62,7 +62,7 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
   };
 
   const subtitleStyle: React.CSSProperties = {
-    fontSize: '14px',
+    fontSize: 'clamp(12px, 3vw, 14px)',
     color: '#6b7280',
     marginBottom: '24px',
     margin: '0 0 24px 0',
@@ -73,14 +73,14 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
   };
 
   const sectionTitleStyle: React.CSSProperties = {
-    fontSize: '16px',
+    fontSize: 'clamp(14px, 4vw, 16px)',
     fontWeight: '600',
     color: '#1f2937',
     marginBottom: '12px',
   };
 
   const textStyle: React.CSSProperties = {
-    fontSize: '14px',
+    fontSize: 'clamp(13px, 3.5vw, 14px)',
     color: '#4b5563',
     lineHeight: '1.6',
     margin: 0,
