@@ -1,22 +1,60 @@
+import React, { useState } from 'react';
 import { DebugKitProvider, useDebugConfig, useLogHistory, useLogger, DebugPanel } from 'devkit-console-ui';
 import { HeroSection } from './sections/HeroSection';
 import { ConsoleSyncSection } from './sections/ConsoleSyncSection';
 import { NamespaceDemoSection } from './sections/NamespaceDemoSection';
 import { ScenarioSection } from './sections/ScenarioSection';
+import { AboutModal } from './components/AboutModal';
 import './App.css';
 
 function AppContent() {
+  const [showAbout, setShowAbout] = useState(false);
   const config = useDebugConfig();
   const logger = useLogger('App');
 
   return (
     <div className="app">
-      <header className="header">
+      <header className="header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h1>DevKit Console Demo</h1>
-        <div className="status-badge">
-          {config.enabled ? '● ' : '○ '} {config.level}
+        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+          <div className="status-badge">
+            {config.enabled ? '● ' : '○ '} {config.level}
+          </div>
+          <button
+            onClick={() => setShowAbout(true)}
+            style={{
+              backgroundColor: 'transparent',
+              border: '1px solid #e5e7eb',
+              borderRadius: '6px',
+              padding: '8px 14px',
+              fontSize: '13px',
+              fontWeight: '500',
+              cursor: 'pointer',
+              color: '#4b5563',
+              transition: 'all 150ms ease',
+            }}
+            onMouseEnter={(e) => {
+              if (e.currentTarget) {
+                e.currentTarget.style.borderColor = '#2563eb';
+                e.currentTarget.style.color = '#2563eb';
+                e.currentTarget.style.backgroundColor = '#eff6ff';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (e.currentTarget) {
+                e.currentTarget.style.borderColor = '#e5e7eb';
+                e.currentTarget.style.color = '#4b5563';
+                e.currentTarget.style.backgroundColor = 'transparent';
+              }
+            }}
+            title="About the creator"
+          >
+            About Me
+          </button>
         </div>
       </header>
+
+      <AboutModal isOpen={showAbout} onClose={() => setShowAbout(false)} />
 
       <main className="main">
         <HeroSection />
