@@ -180,7 +180,7 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
           </button>
 
           <h2 style={titleStyle}>About the Creator</h2>
-          <p style={subtitleStyle}>Igal Krig - Full Stack Developer</p>
+          <p style={subtitleStyle}>Igal Krigel - Full Stack Developer</p>
         </div>
 
         {/* Scrollable Content */}

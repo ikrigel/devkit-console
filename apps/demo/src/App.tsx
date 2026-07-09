@@ -90,10 +90,10 @@ function AppContent() {
       <AboutModal isOpen={showAbout} onClose={() => setShowAbout(false)} />
 
       <main className="main" style={{ color: isDark ? '#e8edf2' : '#1f2937' }}>
-        <HeroSection />
-        <ConsoleSyncSection />
-        <NamespaceDemoSection />
-        <ScenarioSection />
+        <HeroSection isDark={isDark} />
+        <ConsoleSyncSection isDark={isDark} />
+        <NamespaceDemoSection isDark={isDark} />
+        <ScenarioSection isDark={isDark} />
       </main>
 
       <footer className="footer" style={{
