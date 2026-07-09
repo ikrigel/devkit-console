@@ -25,6 +25,83 @@ export function App() {
   );
 }`}
         </pre>
+
+        <div style={{ marginTop: '1rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+          <a
+            href="https://www.npmjs.com/package/devkit-console-core"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              padding: '0.5rem 1rem',
+              backgroundColor: '#3b82f6',
+              color: '#ffffff',
+              borderRadius: '0.375rem',
+              textDecoration: 'none',
+              fontSize: '0.875rem',
+              fontWeight: '600',
+              transition: 'background-color 150ms ease'
+            }}
+            onMouseEnter={(e) => {
+              if (e.currentTarget) e.currentTarget.style.backgroundColor = '#2563eb';
+            }}
+            onMouseLeave={(e) => {
+              if (e.currentTarget) e.currentTarget.style.backgroundColor = '#3b82f6';
+            }}
+          >
+            📦 Core on npm
+          </a>
+          <a
+            href="https://www.npmjs.com/package/devkit-console-ui"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              padding: '0.5rem 1rem',
+              backgroundColor: '#3b82f6',
+              color: '#ffffff',
+              borderRadius: '0.375rem',
+              textDecoration: 'none',
+              fontSize: '0.875rem',
+              fontWeight: '600',
+              transition: 'background-color 150ms ease'
+            }}
+            onMouseEnter={(e) => {
+              if (e.currentTarget) e.currentTarget.style.backgroundColor = '#2563eb';
+            }}
+            onMouseLeave={(e) => {
+              if (e.currentTarget) e.currentTarget.style.backgroundColor = '#3b82f6';
+            }}
+          >
+            ⚛️ UI on npm
+          </a>
+          <a
+            href="https://github.com/ikrigel/devkit-console"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              padding: '0.5rem 1rem',
+              backgroundColor: isDark ? '#374151' : '#f3f4f6',
+              color: isDark ? '#e8edf2' : '#1f2937',
+              border: `1px solid ${isDark ? '#4b5563' : '#d1d5db'}`,
+              borderRadius: '0.375rem',
+              textDecoration: 'none',
+              fontSize: '0.875rem',
+              fontWeight: '600',
+              transition: 'all 150ms ease'
+            }}
+            onMouseEnter={(e) => {
+              if (e.currentTarget) {
+                e.currentTarget.style.backgroundColor = isDark ? '#4b5563' : '#e5e7eb';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (e.currentTarget) {
+                e.currentTarget.style.backgroundColor = isDark ? '#374151' : '#f3f4f6';
+              }
+            }}
+          >
+            ⭐ GitHub
+          </a>
+        </div>
       </div>
     </section>
   );
