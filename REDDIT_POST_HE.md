@@ -1,178 +1,193 @@
-# DevKit Console — Debug את ה-React App שלך בצורה מקצועית
+# DevKit Console – Debug כמו וויז, לא כמו Vim
 
-**TL;DR:** ספריית npm ללא dependencies שמנהלת סינכרון בזמן אמת בין browser console ל-React UI. שנה log levels מ-DevTools או מפנל צף - שניהם מתעדכנים באותו הרגע. TypeScript מלא. React components מוכנים. אין CSS imports. [demo חי](https://devkit-console.vercel.app) | [GitHub](https://github.com/ikrigel/devkit-console)
+**TL;DR:** ספריית npm ללא dependencies לשליטה דו-כיוונית ברמת הדיבוג בין console ל-React UI. הקלידו `debug.trace()` בדטולס → ה-UI מתעדכן מיד. נסו חי: https://devkit-console.vercel.app
 
 ---
 
 ## הבעיה
 
-אתה debug ל-React app. פתחת את DevTools וקלדת `debug.debug()` כדי לשנות את log level. אבל ה-UI של React שלך? עדיין מראה את הlevel הישן. ה-logger component שלך לא התעדכן. אתה צריך ידנית להפעיל state change או לטעון מחדש את העמוד.
+אתם בתוך סשן דיבוג עמוק. אתם רוצים לראות הכל (`trace` level). אז אתם:
 
-או גרוע יותר: ה-logger UI שלך מחובר רק ל*חלקים מסוימים* מה-app שלך. console API לא סנכרונה. ההיסטוריה של logs ב-React state לא מתאימה למה שב-localStorage.
+1. פותחים DevTools
+2. מקלידים `debug.trace()`
+3. **מתכופפים על ה-console בזמן שמנסים להבין את ה-UI של האפליקציה**
+4. חוטפים log מופעם כי הוא עבר בחטף
+5. לא יכולים לסנן לפי namespace או לייצא ליעיל
+6. חוזרים על זה 50 פעמים
+
+או שאתם לוחצים בוטון בממשק כדי לשנות רמת logging, אבל ה-DevTools לא יודע על זה. הדיבוג מרגיש *מעובד*.
+
+---
 
 ## הפתרון
 
-**DevKit Console** היא ספריית npm בגודל 10KB (gzipped) שמנהלת סינכרון **דו-כיווני אמיתי** בין browser console ל-React UI:
+**DevKit Console** סוגר את הפער. זה כמו להיות ווייז (ממשק אינטואיטיבי) במקום לקרוא קואורדינטות GPS (logs גולמיים).
+
+### הטריק הליבה: Sync דו-כיווני
 
 ```javascript
-// מ-browser console (F12):
-debug.debug()        // ← שנה את log level
+// פתחו console ב-DevTools וכתבו (ללא סוגריים):
+debug.trace    // הפעילו TRACE level - ה-UI מתעדכן מיד
+debug.debug    // עברו ל-DEBUG level - שניהם מתעדכנים ביחד
+debug.info
+debug.warn
+debug.error
+debug.disable  // כבו הכל
 ```
 
-```javascript
-// ה-React UI שלך מתעדכן באותו הרגע:
-const config = useDebugConfig();  // Re-renders עם ה-level החדש
-```
+ה-React UI (`<DebugPanel>`) מתעדכן חי כשאתם מקלידים. לחצו על level pill בממשק → ה-console משקף את זה מיד. **הם תמיד בסנכרון.**
 
-אין polling. אין setTimeout. אירועים אמיתיים pub/sub מתחת למכסה המנוע.
+### מה זה משלח
+
+**שתי ספריות npm (אפס dependencies):**
+
+1. **`devkit-console-core`** (13 KB gzipped)
+   - `window.debug` global (עובד בכל סביבת JavaScript)
+   - Namespace-scoped loggers
+   - Real-time config emitter
+   - Log history (ring buffer, 500 entries)
+   - Export ל-JSON/text
+
+2. **`devkit-console-ui`** (18 KB gzipped)
+   - React hooks: `useDebugConfig()`, `useLogHistory()`, `useLogger()`
+   - `<DebugPanel>` floating component (compose-friendly)
+   - `<LevelSelector>`, `<LogViewer>`, `<StatusBadge>`, `<ExportButton>`
+   - Dark/light theme support
+   - כל ה-inline styles (אפס CSS imports)
 
 ---
 
-## מה כלול
+## Features שחשובים
 
-### @devkit-console/core
-- **DebugManager** — ניהול מרכזי של log state (enabled/disabled, level)
-- **Logger** — loggers בממ"ד namespaces (`debug.ns('MyApp')`)
-- **Storage** — שמור אוטומטי ל-localStorage + log history
-- **window.debug API** — הכל ישירות מה-browser console שלך
-- **TypeScript** — type safety מלא
+### 1. **Namespace Filtering**
+```javascript
+const auth = useLogger('Auth');
+const network = useLogger('Network');
 
-אפס dependencies בזמן ריצה. ~3KB gzipped.
+auth.info('User logged in');
+network.debug('Fetching /api/users');
+```
 
-### @devkit-console/react
-- **Hooks** — `useDebugConfig()`, `useLogHistory()`, `useLogger()`
-- **6 React Components מוכנים**
-  - `<StatusBadge />` — "● DEBUG" או "○ OFF"
-  - `<LevelSelector />` — 5-button pill group ל-levels
-  - `<LogViewer />` — היסטוריית logs צבעונית וגלילה
-  - `<ExportButton />` — download logs כ-JSON/text
-  - `<NamespaceList />` — namespaces פעילים + כמויות
-  - `<DebugPanel />` — floating panel המורכב מכל האלמנטים הנ"ל
-- **אין CSS imports** — הכל בתוך inline styles
-- **Uncontrolled & controlled** — השתמש ב-`defaultOpen` או `open` + `onOpenChange`
+UI מראה logs מקובצים לפי namespace. לחצו על namespace כדי להעמיק.
 
-~8KB gzipped.
+### 2. **Live Log Export**
+- לחצו "Export JSON" → הורידו את כל ה-log history עם metadata
+- טוב ל: bug reports, performance analysis, QA sign-off
+- אין API calls, הכל client-side
+
+### 3. **Floating Debug Panel**
+- Compose לכל React app ב-2 שורות
+- Position: top-left, top-right, bottom-left, bottom-right
+- Open/close toggle (animated)
+- Responsive על mobile
+
+### 4. **Offline First**
+- אין backend, אין צורך באינטרנט
+- עובד ב-test environments, SSR, Electron, React Native
+- מושלם לטימים security-conscious
 
 ---
 
-## דוגמה מהירה
+## Use Cases בעולם האמיתי
 
-```typescript
-import React from 'react';
-import { DebugKitProvider, DebugPanel, useDebugConfig } from '@devkit-console/react';
+### 🎮 Game Development
+עקבו אחרי FPS, input state, entity updates בלי לחזור לDevTools.
 
-function App() {
+### 📱 Mobile Web
+Debuggingו על מכשירים פיזיים כשגישה ל-console קשה. UI תמיד בעמוד.
+
+### 🔍 QA / Bug Reporting
+"הנה ה-JSON log מכשהיה השבר" → reproducible bug report.
+
+### 🚀 Onboarding
+טימלד חדש פותח את האפליקציה, לוחץ על הבאג 🐛, רואה live logs. Context מיד.
+
+### 🏢 Enterprise
+Audit trail של debug activities. Export logs ל-compliance.
+
+---
+
+## Quick Start
+
+```bash
+npm install devkit-console-core devkit-console-ui
+```
+
+```tsx
+import { DebugKitProvider } from 'devkit-console-ui';
+import { DebugPanel } from 'devkit-console-ui';
+
+export function App() {
   return (
     <DebugKitProvider>
+      <DebugPanel position="bottom-right" defaultOpen={true} />
       <YourApp />
-      
-      {/* Floating debug panel — לחץ 🐛 כדי לפתוח */}
-      <DebugPanel
-        position="bottom-right"
-        defaultOpen={false}
-        showLogViewer={true}
-        showExport={true}
-        showVersion={true}
-      />
     </DebugKitProvider>
   );
 }
-
-function MyComponent() {
-  const config = useDebugConfig();  // Subscribe ל-config changes
-  const logger = useLogger('MyComponent');
-
-  return (
-    <div>
-      Debug הוא {config.enabled ? '🟢 ON' : '🔴 OFF'} ב-{config.level}
-      <button onClick={() => logger.info('Button clicked!')}>
-        לחץ על כפתור
-      </button>
-    </div>
-  );
-}
 ```
 
----
-
-## Browser Console Magic
-
-```javascript
-// מ-console (F12), אין צורך בsetup:
-
-debug.debug()        // קבע level ל-DEBUG (הצג debug logs)
-debug.trace()        // קבע level ל-TRACE (הכי מילולי)
-debug.info()         // קבע level ל-INFO
-debug.warn()         // קבע level ל-WARN
-debug.error()        // קבע level ל-ERROR
-debug.disable()      // כבה את logging
-
-debug.status()       // הצג ASCII banner עם status נוכחי
-debug.version()      // הצג version
-debug.history()      // קבל array של כל ה-logged entries
-debug.exportLogs('json') // Download כ-JSON
-debug.ns('Auth').info('Login') // Scoped logging
-
-// ה-React UI שלך מתעדכן בזמן אמת 👆
-```
+סיים. ב-DevTools console, הקלידו `debug.debug()` וראו את ה-UI מגיב.
 
 ---
 
-## למה זה מדהים
+## Live Demo
 
-✅ **Bidirectional sync** — console ו-UI תמיד מסונכרנים  
-✅ **Namespace support** — scoped loggers (`debug.ns('Network')`)  
-✅ **Structured data** — log objects + arrays, לא רק strings  
-✅ **Export logs** — download כ-JSON או text  
-✅ **TypeScript** — type safety מלא, לא `any`  
-✅ **אפס dependencies** (core package)  
-✅ **אין CSS** — React components מוכנים עם inline styles  
-✅ **קטן מאוד** — 3KB core + 8KB react (gzipped)  
-✅ **Persistent** — הגדרות נשמרות ל-localStorage  
-✅ **Event-based** — pub/sub מתחת למכסה המנוע, לא polling  
+**בקרו ב:** https://devkit-console.vercel.app
+
+נסו את ה-scenarios:
+- **Console Sync:** הקלידו פקודות ב-DevTools, ראו את ה-UI panel מתעדכן
+- **Namespace Demo:** הגרילו logs מ-Auth/Network/Render services
+- **Scenario Simulator:** פוצצו 10 TRACE logs, ראו את הviewer עומד בזה
+- **Export:** הורידו JSON של הכל
 
 ---
 
-## התקנה
+## למה זה קיים
 
-```bash
-npm install @devkit-console/core @devkit-console/react
-```
-
-או רק core אם אתה רוצה רק את ה-manager + console API:
-
-```bash
-npm install @devkit-console/core
-```
+בילו שנים בדיבוג דרך console.log פזור על tabs וterminals. יום אחד הבנתי: *אפליקציות GPS לא מחייבות אותך לקרוא קואורדינטות. למה debuggingשל צריך להיות אחרת?* DevKit Console היא הרגע "Waze" הזה לlogging.
 
 ---
 
-## Demo חי
+## תחת ה-Hood
 
-בדוק את ה-demo האינטראקטיבי: https://devkit-console.vercel.app
-
-- פתח את browser console (F12)
-- קלוד `debug.debug()` כדי לשנות את level
-- צפה בפנל ה-UI מתעדכן בזמן אמת
-- לחץ על level buttons ב-UI
-- צפה ב-console banner משקף את השינוי
-
----
-
-## Docs
-
-- **README** — https://github.com/ikrigel/devkit-console/blob/main/docs/README.md
-- **Full API** — https://github.com/ikrigel/devkit-console/blob/main/docs/API.md
-- **Changelog** — https://github.com/ikrigel/devkit-console/blob/main/docs/CHANGELOG.md
+- **TypeScript** (strict mode, full .d.ts types)
+- **React 18+ hooks** (useContext, useState, useEffect)
+- **אפס dependencies** (core package באמת standalone)
+- **Ring buffer** (bounded memory, לעולם לא ינפץ)
+- **TypedEmitter** (pub/sub בלי התנגשויות)
+- **Tested** (vitest + @testing-library/react)
 
 ---
 
-## GitHub
+## קישורים
 
-https://github.com/ikrigel/devkit-console
-
-⭐ אם זה הוגן לך, תן ⭐!
+- 📦 **Core ב-npm:** https://www.npmjs.com/package/devkit-console-core
+- ⚛️ **UI ב-npm:** https://www.npmjs.com/package/devkit-console-ui
+- 🌟 **GitHub:** https://github.com/ikrigel/devkit-console
+- 🎮 **Live Demo:** https://devkit-console.vercel.app
 
 ---
 
-**איך הsetup של logging שלך נראה?** תגובה אם אי פעם התמודדת עם בעיית סינכרון console↔UI. סקרן מה אנשים עושים היום.
+## מה הבא?
+
+תרשים דרכים ל-v0.2.0:
+- Advanced filtering (status, date range)
+- Heatmap mode (log density visualization)
+- GeoJSON export ל-mapping/analysis
+- Telemetry integration hooks
+- Service Worker integration ל-offline PWA logging
+
+---
+
+## עוד דבר אחד
+
+זו ספריה production-ready המשמשת בפרויקטים אמיתיים. Bug reports / PRs / ideas יתקבלו בברכה. אם התחמו מ-debugging workflows, תנו לזה הזדמנות. אני חושב שתעריצו את ה-"it just works" vibeשל זה.
+
+---
+
+**שדיבוג שמח.** ✨
+
+*Igal Krigel*  
+Full-stack developer | React enthusiast | Debugging tool maker  
+https://github.com/ikrigel
