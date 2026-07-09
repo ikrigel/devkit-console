@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export interface AboutModalProps {
   isOpen: boolean;
@@ -6,6 +6,25 @@ export interface AboutModalProps {
 }
 
 export function AboutModal({ isOpen, onClose }: AboutModalProps) {
+  // Prevent body scroll when modal is open + handle ESC key
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+
+      const handleEscape = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          onClose();
+        }
+      };
+
+      document.addEventListener('keydown', handleEscape);
+      return () => {
+        document.body.style.overflow = 'unset';
+        document.removeEventListener('keydown', handleEscape);
+      };
+    }
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const modalOverlayStyle: React.CSSProperties = {
@@ -14,25 +33,28 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 9999,
-    backdropFilter: 'blur(4px)',
+    zIndex: 9998,
+    backdropFilter: 'blur(3px)',
+    WebkitBackdropFilter: 'blur(3px)',
   };
 
   const modalStyle: React.CSSProperties = {
     backgroundColor: '#ffffff',
     borderRadius: '12px',
-    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
     maxWidth: '500px',
     width: 'calc(100vw - 32px)',
-    maxHeight: 'calc(100vh - 32px)',
+    maxHeight: 'calc(100vh - 64px)',
     overflow: 'auto',
     padding: '32px 24px',
     fontFamily: 'system-ui, -apple-system, sans-serif',
     animation: 'slideUp 0.3s ease-out',
+    position: 'relative',
+    zIndex: 9999,
   };
 
   const closeButtonStyle: React.CSSProperties = {
