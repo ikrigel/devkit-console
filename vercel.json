@@ -1,0 +1,5 @@
+{
+  "installCommand": "pnpm install",
+  "buildCommand": "pnpm --filter @devkit-console/core build && pnpm --filter @devkit-console/react build && pnpm --filter devkit-console-demo build",
+  "outputDirectory": "apps/demo/dist"
+}
