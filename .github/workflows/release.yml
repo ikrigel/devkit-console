@@ -50,12 +50,12 @@ jobs:
         run: pnpm -r test:run
 
       - name: Publish core package to npm
-        run: pnpm --filter @devkit-console/core publish --access public --no-git-checks
+        run: pnpm --filter devkit-console-core publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Publish react package to npm
-        run: pnpm --filter @devkit-console/react publish --access public --no-git-checks
+      - name: Publish ui package to npm
+        run: pnpm --filter devkit-console-ui publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
