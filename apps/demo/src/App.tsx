@@ -5,6 +5,7 @@ import { ConsoleSyncSection } from './sections/ConsoleSyncSection';
 import { NamespaceDemoSection } from './sections/NamespaceDemoSection';
 import { ScenarioSection } from './sections/ScenarioSection';
 import { AboutModal } from './components/AboutModal';
+import { ParallaxBackground } from './components/ParallaxBackground';
 import './App.css';
 
 function AppContent() {
@@ -14,6 +15,7 @@ function AppContent() {
 
   return (
     <div className="app">
+      <ParallaxBackground />
       <header className="header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h1>DevKit Console Demo</h1>
         <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>

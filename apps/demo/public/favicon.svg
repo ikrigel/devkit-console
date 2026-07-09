@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+  <!-- Background -->
+  <rect width="180" height="180" fill="#1f2937"/>
+
+  <!-- Console symbol - bracket >_ -->
+  <g fill="none" stroke="#3b82f6" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Opening bracket -->
+    <path d="M 30 60 L 50 60 L 50 120 L 30 120"/>
+
+    <!-- Underscore/cursor -->
+    <line x1="60" y1="105" x2="90" y2="105"/>
+
+    <!-- Debug indicator - pulsing dot -->
+    <circle cx="120" cy="90" r="12" fill="#10b981" opacity="0.9"/>
+  </g>
+
+  <!-- Subtle glow effect -->
+  <circle cx="120" cy="90" r="12" fill="none" stroke="#10b981" stroke-width="3" opacity="0.3">
+    <animate attributeName="r" values="12;18" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.3;0" dur="2s" repeatCount="indefinite"/>
+  </circle>
+</svg>
