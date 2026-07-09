@@ -1,4 +1,4 @@
-import { DebugKitProvider, useDebugConfig, useLogHistory, useLogger } from '@devkit-console/react';
+import { DebugKitProvider, useDebugConfig, useLogHistory, useLogger, DebugPanel } from '@devkit-console/react';
 import { HeroSection } from './sections/HeroSection';
 import { ConsoleSyncSection } from './sections/ConsoleSyncSection';
 import { NamespaceDemoSection } from './sections/NamespaceDemoSection';
@@ -29,7 +29,21 @@ function AppContent() {
         <p>
           Open browser console (F12) and type <code>debug.debug()</code> to see live synchronization
         </p>
+        <p style={{ fontSize: '12px', opacity: 0.7 }}>
+          💡 Click the debug bug button (bottom-right) to open the interactive DebugPanel
+        </p>
       </footer>
+
+      {/* Floating debug panel - bottom right */}
+      <DebugPanel
+        position="bottom-right"
+        defaultOpen={false}
+        showLogViewer={true}
+        showExport={true}
+        showNamespaces={true}
+        showVersion={true}
+        maxVisibleLogs={50}
+      />
     </div>
   );
 }
