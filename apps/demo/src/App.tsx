@@ -18,7 +18,14 @@ function AppContent() {
   return (
     <div className="app" style={{ backgroundColor: isDark ? '#0f172a' : '#f0f9ff', color: isDark ? '#e8edf2' : '#1f2937' }}>
       <ParallaxBackground isDark={isDark} />
-      <header className="header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <header className="header" style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: isDark ? '#1f2937' : '#ffffff',
+        borderBottom: `1px solid ${isDark ? '#374151' : '#e5e7eb'}`,
+        color: isDark ? '#e8edf2' : '#1f2937'
+      }}>
         <h1>DevKit Console Demo</h1>
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
           <div className="status-badge">
@@ -82,18 +89,22 @@ function AppContent() {
 
       <AboutModal isOpen={showAbout} onClose={() => setShowAbout(false)} />
 
-      <main className="main">
+      <main className="main" style={{ color: isDark ? '#e8edf2' : '#1f2937' }}>
         <HeroSection />
         <ConsoleSyncSection />
         <NamespaceDemoSection />
         <ScenarioSection />
       </main>
 
-      <footer className="footer">
+      <footer className="footer" style={{
+        backgroundColor: isDark ? '#111827' : '#f9fafb',
+        borderTop: `1px solid ${isDark ? '#374151' : '#e5e7eb'}`,
+        color: isDark ? '#d1d5db' : '#6b7280'
+      }}>
         <p>
-          Open browser console (F12) and type <code>debug.debug()</code> to see live synchronization
+          Open browser console (F12) and type <code style={{ backgroundColor: isDark ? '#1f2937' : '#f3f4f6', color: isDark ? '#60a5fa' : '#0c4a6e', padding: '2px 6px', borderRadius: '4px' }}>debug.debug()</code> to see live synchronization
         </p>
-        <p style={{ fontSize: '12px', opacity: 0.7 }}>
+        <p style={{ fontSize: '12px', opacity: 0.8 }}>
           💡 Click the debug bug button (bottom-right) to open the interactive DebugPanel
         </p>
       </footer>
