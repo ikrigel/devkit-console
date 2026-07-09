@@ -47,8 +47,8 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
     borderRadius: '12px',
     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
     maxWidth: '500px',
-    width: 'calc(100vw - 32px)',
-    maxHeight: '90vh',
+    width: 'calc(100vw - clamp(16px, 3vw, 32px))',
+    maxHeight: '92vh',
     display: 'flex',
     flexDirection: 'column',
     fontFamily: 'system-ui, -apple-system, sans-serif',
@@ -58,24 +58,24 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
   };
 
   const modalHeaderStyle: React.CSSProperties = {
-    padding: '32px 24px 0 24px',
-    paddingRight: '48px',
+    padding: 'clamp(12px, 3vw, 32px) clamp(12px, 3vw, 24px) 0 clamp(12px, 3vw, 24px)',
+    paddingRight: '40px',
     flexShrink: 0,
   };
 
   const modalContentStyle: React.CSSProperties = {
     overflow: 'auto',
     flex: 1,
-    padding: '0 24px 32px 24px',
+    padding: '0 clamp(12px, 3vw, 24px) clamp(12px, 3vw, 32px) clamp(12px, 3vw, 24px)',
   };
 
   const closeButtonStyle: React.CSSProperties = {
     position: 'absolute',
-    top: '16px',
-    right: '16px',
+    top: 'clamp(12px, 3vw, 16px)',
+    right: 'clamp(12px, 3vw, 16px)',
     background: 'none',
     border: 'none',
-    fontSize: '28px',
+    fontSize: 'clamp(24px, 5vw, 28px)',
     cursor: 'pointer',
     color: '#6b7280',
     padding: '0',
@@ -88,35 +88,33 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
   };
 
   const titleStyle: React.CSSProperties = {
-    fontSize: 'clamp(20px, 5vw, 28px)',
+    fontSize: 'clamp(16px, 4vw, 28px)',
     fontWeight: '700',
     color: '#1f2937',
-    marginBottom: '8px',
-    margin: '0 0 8px 0',
+    margin: '0 0 4px 0',
   };
 
   const subtitleStyle: React.CSSProperties = {
-    fontSize: 'clamp(12px, 3vw, 14px)',
+    fontSize: 'clamp(11px, 2.5vw, 14px)',
     color: '#6b7280',
-    marginBottom: '24px',
-    margin: '0 0 24px 0',
+    margin: '0 0 12px 0',
   };
 
   const sectionStyle: React.CSSProperties = {
-    marginBottom: '28px',
+    marginBottom: 'clamp(12px, 2.5vw, 28px)',
   };
 
   const sectionTitleStyle: React.CSSProperties = {
-    fontSize: 'clamp(14px, 4vw, 16px)',
+    fontSize: 'clamp(12px, 3.5vw, 16px)',
     fontWeight: '600',
     color: '#1f2937',
-    marginBottom: '12px',
+    marginBottom: '6px',
   };
 
   const textStyle: React.CSSProperties = {
-    fontSize: 'clamp(13px, 3.5vw, 14px)',
+    fontSize: 'clamp(12px, 3vw, 14px)',
     color: '#4b5563',
-    lineHeight: '1.6',
+    lineHeight: '1.5',
     margin: 0,
   };
 
@@ -134,13 +132,13 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
   };
 
   const linkItemStyle: React.CSSProperties = {
-    marginBottom: '10px',
+    marginBottom: 'clamp(8px, 2vw, 10px)',
   };
 
   const dividerStyle: React.CSSProperties = {
     height: '1px',
     backgroundColor: '#e5e7eb',
-    margin: '24px 0',
+    margin: 'clamp(16px, 3vw, 24px) 0',
   };
 
   const buttonStyle: React.CSSProperties = {
@@ -148,8 +146,8 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
     color: '#ffffff',
     border: 'none',
     borderRadius: '8px',
-    padding: '10px 20px',
-    fontSize: '14px',
+    padding: 'clamp(8px, 2vw, 10px) clamp(16px, 3vw, 20px)',
+    fontSize: 'clamp(12px, 3vw, 14px)',
     fontWeight: '600',
     cursor: 'pointer',
     width: '100%',
