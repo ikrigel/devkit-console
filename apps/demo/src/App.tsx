@@ -6,22 +6,46 @@ import { NamespaceDemoSection } from './sections/NamespaceDemoSection';
 import { ScenarioSection } from './sections/ScenarioSection';
 import { AboutModal } from './components/AboutModal';
 import { ParallaxBackground } from './components/ParallaxBackground';
+import { useTheme } from './hooks/useTheme';
 import './App.css';
 
 function AppContent() {
   const [showAbout, setShowAbout] = useState(false);
+  const { mode, isDark, setThemeMode } = useTheme();
   const config = useDebugConfig();
   const logger = useLogger('App');
 
   return (
-    <div className="app">
-      <ParallaxBackground />
+    <div className="app" style={{ backgroundColor: isDark ? '#0f172a' : '#f0f9ff', color: isDark ? '#e8edf2' : '#1f2937' }}>
+      <ParallaxBackground isDark={isDark} />
       <header className="header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h1>DevKit Console Demo</h1>
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
           <div className="status-badge">
             {config.enabled ? '● ' : '○ '} {config.level}
           </div>
+
+          {/* Theme Selector */}
+          <select
+            value={mode}
+            onChange={(e) => setThemeMode(e.target.value as 'light' | 'dark' | 'auto')}
+            style={{
+              padding: '6px 12px',
+              borderRadius: '6px',
+              border: `1px solid ${isDark ? '#374151' : '#e5e7eb'}`,
+              backgroundColor: isDark ? '#1f2937' : '#ffffff',
+              color: isDark ? '#e8edf2' : '#1f2937',
+              fontSize: '13px',
+              fontWeight: '500',
+              cursor: 'pointer',
+              transition: 'all 150ms ease',
+            }}
+          >
+            <option value="auto">🌗 Auto</option>
+            <option value="light">☀️ Light</option>
+            <option value="dark">🌙 Dark</option>
+          </select>
+
           <button
             onClick={() => setShowAbout(true)}
             style={{

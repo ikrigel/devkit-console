@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
-export function ParallaxBackground() {
+interface ParallaxBackgroundProps {
+  isDark: boolean;
+}
+
+export function ParallaxBackground({ isDark }: ParallaxBackgroundProps) {
   const [offset, setOffset] = useState(0);
 
   useEffect(() => {
@@ -12,6 +16,11 @@ export function ParallaxBackground() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const bgColor = isDark ? '#0f172a' : '#f0f9ff';
+  const skyGradient = isDark
+    ? 'linear-gradient(180deg, #0f172a 0%, #1e293b 40%, #334155 100%)'
+    : 'linear-gradient(180deg, #e0f2fe 0%, #bae6fd 40%, #7dd3fc 100%)';
+
   return (
     <div
       style={{
@@ -22,69 +31,92 @@ export function ParallaxBackground() {
         bottom: 0,
         zIndex: -1,
         pointerEvents: 'none',
+        overflow: 'hidden',
       }}
     >
-      {/* Layer 1 - Slowest (background) */}
+      {/* Sky background */}
       <div
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
-          height: '200%',
-          background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)',
-          transform: `translateY(${offset * 0.2}px)`,
-          transition: 'transform 0.1s ease-out',
+          height: '100%',
+          background: skyGradient,
         }}
       />
 
-      {/* Layer 2 - Medium speed */}
-      <div
+      {/* Far mountains - slowest parallax */}
+      <svg
+        viewBox="0 0 1200 400"
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
-          height: '250%',
-          background: `
-            radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
-            radial-gradient(circle at 80% 70%, rgba(16, 185, 129, 0.08) 0%, transparent 50%)
-          `,
-          transform: `translateY(${offset * 0.4}px)`,
+          width: '100%',
+          height: '100%',
+          transform: `translateY(${offset * 0.15}px)`,
           transition: 'transform 0.1s ease-out',
         }}
-      />
+        preserveAspectRatio="xMidYMid slice"
+      >
+        <path d="M0,250 Q300,100 600,250 T1200,250 L1200,400 L0,400 Z"
+          fill={isDark ? '#0c4a6e' : '#0284c7'} opacity="0.3" />
+      </svg>
 
-      {/* Layer 3 - Faster */}
-      <div
+      {/* Mid-range mountains - medium parallax */}
+      <svg
+        viewBox="0 0 1200 400"
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
-          height: '300%',
-          backgroundImage: `
-            linear-gradient(45deg, transparent 30%, rgba(99, 102, 241, 0.02) 30.5%, rgba(99, 102, 241, 0.02) 60%, transparent 60.5%),
-            linear-gradient(-45deg, transparent 30%, rgba(139, 92, 246, 0.02) 30.5%, rgba(139, 92, 246, 0.02) 60%, transparent 60.5%)
-          `,
-          backgroundSize: '40px 40px',
-          transform: `translateY(${offset * 0.6}px)`,
+          width: '100%',
+          height: '100%',
+          transform: `translateY(${offset * 0.35}px)`,
           transition: 'transform 0.1s ease-out',
         }}
-      />
+        preserveAspectRatio="xMidYMid slice"
+      >
+        <path d="M0,300 Q200,150 400,280 T800,300 T1200,280 L1200,400 L0,400 Z"
+          fill={isDark ? '#164e63' : '#0369a1'} opacity="0.5" />
+      </svg>
+
+      {/* Foreground hills - fastest parallax */}
+      <svg
+        viewBox="0 0 1200 400"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          width: '100%',
+          height: '100%',
+          transform: `translateY(${offset * 0.55}px)`,
+          transition: 'transform 0.1s ease-out',
+        }}
+        preserveAspectRatio="xMidYMid slice"
+      >
+        <path d="M0,320 Q150,200 300,310 T600,330 T900,310 T1200,320 L1200,400 L0,400 Z"
+          fill={isDark ? '#1e3a8a' : '#0ea5e9'} opacity="0.7" />
+      </svg>
 
       {/* Floating orbs - animated */}
       <div
         style={{
           position: 'absolute',
-          top: '5%',
-          right: '10%',
-          width: '300px',
-          height: '300px',
-          background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%)',
+          top: '10%',
+          right: '15%',
+          width: '200px',
+          height: '200px',
+          background: isDark
+            ? 'radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%)',
           borderRadius: '50%',
           filter: 'blur(40px)',
-          transform: `translateY(${offset * 0.3}px)`,
+          transform: `translateY(${offset * 0.2}px)`,
           animation: 'float 8s ease-in-out infinite',
         }}
       />
@@ -92,31 +124,17 @@ export function ParallaxBackground() {
       <div
         style={{
           position: 'absolute',
-          bottom: '10%',
-          left: '5%',
-          width: '400px',
-          height: '400px',
-          background: 'radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%)',
+          bottom: '15%',
+          left: '10%',
+          width: '250px',
+          height: '250px',
+          background: isDark
+            ? 'radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%)',
           borderRadius: '50%',
           filter: 'blur(50px)',
           transform: `translateY(${offset * 0.25}px)`,
           animation: 'float 10s ease-in-out infinite 2s',
-        }}
-      />
-
-      {/* Subtle noise texture */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage: `
-            url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise' /%3E%3C/filter%3E%3Crect width='400' height='400' fill='%23000' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E")
-          `,
-          backgroundSize: '400px 400px',
-          opacity: 0.5,
         }}
       />
 

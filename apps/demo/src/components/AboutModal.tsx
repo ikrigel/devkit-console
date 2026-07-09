@@ -48,13 +48,25 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
     maxWidth: '500px',
     width: 'calc(100vw - 32px)',
-    maxHeight: 'calc(100vh - 64px)',
-    overflow: 'auto',
-    padding: '32px 24px',
+    maxHeight: '90vh',
+    display: 'flex',
+    flexDirection: 'column',
     fontFamily: 'system-ui, -apple-system, sans-serif',
     animation: 'slideUp 0.3s ease-out',
     position: 'relative',
     zIndex: 9999,
+  };
+
+  const modalHeaderStyle: React.CSSProperties = {
+    padding: '32px 24px 0 24px',
+    paddingRight: '48px',
+    flexShrink: 0,
+  };
+
+  const modalContentStyle: React.CSSProperties = {
+    overflow: 'auto',
+    flex: 1,
+    padding: '0 24px 32px 24px',
   };
 
   const closeButtonStyle: React.CSSProperties = {
@@ -151,25 +163,30 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
 
       {/* Modal Content */}
       <div style={modalStyle}>
-        <button
-          style={closeButtonStyle}
-          onClick={onClose}
-          title="Close"
-          onMouseEnter={(e) => {
-            if (e.currentTarget) e.currentTarget.style.color = '#1f2937';
-          }}
-          onMouseLeave={(e) => {
-            if (e.currentTarget) e.currentTarget.style.color = '#6b7280';
-          }}
-        >
-          ✕
-        </button>
+        {/* Fixed Header */}
+        <div style={modalHeaderStyle}>
+          <button
+            style={closeButtonStyle}
+            onClick={onClose}
+            title="Close"
+            onMouseEnter={(e) => {
+              if (e.currentTarget) e.currentTarget.style.color = '#1f2937';
+            }}
+            onMouseLeave={(e) => {
+              if (e.currentTarget) e.currentTarget.style.color = '#6b7280';
+            }}
+          >
+            ✕
+          </button>
 
-        <h2 style={titleStyle}>About the Creator</h2>
-        <p style={subtitleStyle}>Igal Krig - Full Stack Developer</p>
+          <h2 style={titleStyle}>About the Creator</h2>
+          <p style={subtitleStyle}>Igal Krig - Full Stack Developer</p>
+        </div>
 
-        {/* Bio Section */}
-        <div style={sectionStyle}>
+        {/* Scrollable Content */}
+        <div style={modalContentStyle}>
+          {/* Bio Section */}
+          <div style={sectionStyle}>
           <h3 style={sectionTitleStyle}>Who I Am</h3>
           <p style={textStyle}>
             I'm a full-stack developer passionate about building elegant, performant tools for the JavaScript ecosystem.
@@ -281,18 +298,19 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
           </p>
         </div>
 
-        <button
-          style={buttonStyle}
-          onClick={onClose}
-          onMouseEnter={(e) => {
-            if (e.currentTarget) e.currentTarget.style.backgroundColor = '#1d4ed8';
-          }}
-          onMouseLeave={(e) => {
-            if (e.currentTarget) e.currentTarget.style.backgroundColor = '#2563eb';
-          }}
-        >
-          Close
-        </button>
+          <button
+            style={buttonStyle}
+            onClick={onClose}
+            onMouseEnter={(e) => {
+              if (e.currentTarget) e.currentTarget.style.backgroundColor = '#1d4ed8';
+            }}
+            onMouseLeave={(e) => {
+              if (e.currentTarget) e.currentTarget.style.backgroundColor = '#2563eb';
+            }}
+          >
+            Close
+          </button>
+        </div>
       </div>
 
       <style>{`
